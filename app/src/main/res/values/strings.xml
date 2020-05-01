@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LoginServer</string>
+
+    <string name="edit_id">ID</string>
+    <string name="edit_pw">Password</string>
+    <string name="btn_submit">Submit</string>
 </resources>
