@@ -2,6 +2,7 @@ package me.bamtoll.lee.loginserver;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String id = editId.getText().toString().trim();
                 String pw = editId.getText().toString().trim();
+
+                Intent intent = new Intent(getApplicationContext(), Main3Activity.class);
+                startActivity(intent);
 
                 if (id.equals("") || pw.equals("")) {
                     Toast.makeText(getApplicationContext(), "Check your ID or Password", Toast.LENGTH_SHORT).show();
