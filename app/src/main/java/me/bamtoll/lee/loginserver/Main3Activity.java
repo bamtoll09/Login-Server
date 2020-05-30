@@ -19,6 +19,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -28,13 +30,28 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import me.bamtoll.lee.loginserver.retrofit.LoginService;
+import me.bamtoll.lee.loginserver.retrofit.Post;
+import me.bamtoll.lee.loginserver.retrofit.PostService;
 import me.bamtoll.lee.loginserver.ui.home.ContentsFragment;
 import me.bamtoll.lee.loginserver.ui.home.HomeFragment;
 import me.bamtoll.lee.loginserver.ui.home.WriteFragment;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Main3Activity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
+    Retrofit retrofit;
+    Gson gson;
+    public PostService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +59,11 @@ public class Main3Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -80,6 +99,14 @@ public class Main3Activity extends AppCompatActivity {
                 }
             }
         });
+
+        gson = new GsonBuilder().setLenient().create();
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://" + DATA.URL + "/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        service = retrofit.create(PostService.class);
     }
 
     @Override
