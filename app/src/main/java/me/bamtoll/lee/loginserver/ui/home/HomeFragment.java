@@ -28,6 +28,7 @@ import java.util.Locale;
 
 import me.bamtoll.lee.loginserver.Main3Activity;
 import me.bamtoll.lee.loginserver.R;
+import me.bamtoll.lee.loginserver.retrofit.Post;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,16 +60,24 @@ public class HomeFragment extends Fragment {
         }).run();
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            addContentsFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("title", ((Post) parent.getItemAtPosition(position)).getTitle());
+            bundle.putString("contents", ((Post) parent.getItemAtPosition(position)).getContents());
+            bundle.putString("writer", ((Post) parent.getItemAtPosition(position)).getWriter());
+            bundle.putString("date", ((Post) parent.getItemAtPosition(position)).getDate());
+
+            addContentsFragment(bundle);
         });
 
         return root;
     }
 
-    public void addContentsFragment() {
+    public void addContentsFragment(Bundle bundle) {
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.frame_home, new ContentsFragment()).addToBackStack("Contents");
+        ContentsFragment cf = new ContentsFragment();
+        cf.setArguments(bundle);
+        ft.add(R.id.frame_home, cf).addToBackStack("Contents");
         ft.commit();
     }
 

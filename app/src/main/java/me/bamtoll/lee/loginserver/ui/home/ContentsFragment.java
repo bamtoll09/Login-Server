@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,7 +23,15 @@ public class ContentsFragment extends Fragment {
 
         ((Main3Activity) getContext()).displayFab(false);
 
+        Bundle bundle = getArguments();
+
         View root = inflater.inflate(R.layout.fragment_contents, container, false);
+
+        TextView titleText = root.findViewById(R.id.text_contents_title);
+        TextView contentsText = root.findViewById(R.id.text_contents_contents);
+
+        titleText.setText(bundle.getString("title"));
+        contentsText.setText(bundle.getString("contents"));
 
         return root;
     }
