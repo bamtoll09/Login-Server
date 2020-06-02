@@ -14,5 +14,5 @@ public interface PostService {
 
     @POST("/posts/write")
     @FormUrlEncoded
-    Call<Void> write(@Field("title") String title, @Field("contents") String contents);
+    Call<Void> write(@Field("title") String title, @Field("contents") String contents, @Field("type") int type);
 }

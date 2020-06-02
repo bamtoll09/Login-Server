@@ -7,6 +7,11 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Post {
+
+    public enum Types {
+        NOTICE, NORMAL
+    }
+
     @SerializedName("_id")
     @Expose
     private String _id;
@@ -27,12 +32,17 @@ public class Post {
     @Expose
     private String writer;
 
-    public Post(String _id, String title, String contents, String date, String writer) {
+    @SerializedName("type")
+    @Expose
+    private int type;
+
+    public Post(String _id, String title, String contents, String date, String writer, int type) {
         this._id = _id;
         this.title = title;
         this.contents = contents;
         this.date = date;
         this.writer = writer;
+        this.type = type;
     }
 
     public String get_id() {
@@ -74,4 +84,8 @@ public class Post {
     public void setWriter(String writer) {
         this.writer = writer;
     }
+
+    public int getType() { return type; }
+
+    public void setType(int type) { this.type = type; }
 }

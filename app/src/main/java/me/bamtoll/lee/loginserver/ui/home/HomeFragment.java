@@ -65,6 +65,7 @@ public class HomeFragment extends Fragment {
             bundle.putString("contents", ((Post) parent.getItemAtPosition(position)).getContents());
             bundle.putString("writer", ((Post) parent.getItemAtPosition(position)).getWriter());
             bundle.putString("date", ((Post) parent.getItemAtPosition(position)).getDate());
+            bundle.putInt("type", ((Post) parent.getItemAtPosition(position)).getType());
 
             addContentsFragment(bundle);
         });

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import me.bamtoll.lee.loginserver.Main3Activity;
 import me.bamtoll.lee.loginserver.R;
+import me.bamtoll.lee.loginserver.retrofit.Post;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,7 +50,7 @@ public class WriteFragment extends Fragment {
     }
 
     public void write(String tit, String con) {
-        ((Main3Activity) getContext()).service.write(tit, con).enqueue(new Callback<Void>() {
+        ((Main3Activity) getContext()).service.write(tit, con, Post.Types.NORMAL.ordinal()).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Toast.makeText(getContext().getApplicationContext(), "WRITE SUCCESS!", Toast.LENGTH_SHORT).show();
