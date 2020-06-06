@@ -10,9 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import me.bamtoll.lee.loginserver.R;
 

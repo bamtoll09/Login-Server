@@ -1,7 +1,5 @@
 package me.bamtoll.lee.loginserver;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,10 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import me.bamtoll.lee.loginserver.retrofit.Login;
 import me.bamtoll.lee.loginserver.retrofit.LoginService;
 import retrofit2.Call;
 import retrofit2.Callback;
