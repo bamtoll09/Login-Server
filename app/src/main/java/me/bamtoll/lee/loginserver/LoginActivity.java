@@ -15,8 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import me.bamtoll.lee.loginserver.retrofit.interceptor.AddCookiesInterceptor;
 import me.bamtoll.lee.loginserver.retrofit.interceptor.CookiePreference;
 import me.bamtoll.lee.loginserver.retrofit.LoginService;
+import me.bamtoll.lee.loginserver.retrofit.interceptor.ReceiveCookiesInterceptor;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,6 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
+    OkHttpClient client;
     Retrofit retrofit;
     Gson gson;
     LoginService service;
@@ -41,17 +45,21 @@ public class LoginActivity extends AppCompatActivity {
 
         CookiePreference.create(getApplicationContext());
 
-        editId = (EditText) findViewById(R.id.edit_id);
-        editPw = (EditText) findViewById(R.id.edit_pw);
-        btnSubmit = (Button) findViewById(R.id.btn_submit);
-
+        client = new OkHttpClient();
+        client.interceptors().add(new AddCookiesInterceptor());
+        client.interceptors().add(new ReceiveCookiesInterceptor());
         gson = new GsonBuilder().setLenient().create();
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://" + DATA.URL + "/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(client)
                 .build();
 
         service = retrofit.create(LoginService.class);
+
+        editId = (EditText) findViewById(R.id.edit_id);
+        editPw = (EditText) findViewById(R.id.edit_pw);
+        btnSubmit = (Button) findViewById(R.id.btn_submit);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
