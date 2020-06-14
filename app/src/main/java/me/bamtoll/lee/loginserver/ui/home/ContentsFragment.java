@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import me.bamtoll.lee.loginserver.Main3Activity;
+import me.bamtoll.lee.loginserver.MainActivity;
 import me.bamtoll.lee.loginserver.R;
 
 public class ContentsFragment extends Fragment {
@@ -20,7 +20,7 @@ public class ContentsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Toast.makeText(getContext(), , Toast.LENGTH_SHORT).show();
 
-        ((Main3Activity) getContext()).displayFab(false);
+        ((MainActivity) getContext()).displayFab(false);
 
         Bundle bundle = getArguments();
 
@@ -40,6 +40,6 @@ public class ContentsFragment extends Fragment {
         super.onDestroyView();
 
 
-        ((Main3Activity) getContext()).displayFab(true);
+        ((MainActivity) getContext()).displayFab(true);
     }
 }

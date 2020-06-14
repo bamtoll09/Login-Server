@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import me.bamtoll.lee.loginserver.Main3Activity;
+import me.bamtoll.lee.loginserver.MainActivity;
 import me.bamtoll.lee.loginserver.R;
 import me.bamtoll.lee.loginserver.retrofit.Post;
 import retrofit2.Call;
@@ -25,7 +25,7 @@ public class WriteFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ((Main3Activity) getContext()).displayFab(false);
+        ((MainActivity) getContext()).displayFab(false);
 
         View root = inflater.inflate(R.layout.fragment_write, container, false);
         Button writeBtn = root.findViewById(R.id.btn_write);
@@ -46,21 +46,21 @@ public class WriteFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
 
-        ((Main3Activity) getContext()).displayFab(true);
+        ((MainActivity) getContext()).displayFab(true);
     }
 
     public void write(String tit, String con) {
-        ((Main3Activity) getContext()).service.write(tit, con, Post.Types.NORMAL.ordinal()).enqueue(new Callback<Void>() {
+        ((MainActivity) getContext()).service.write(tit, con, Post.Types.NORMAL.ordinal()).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Toast.makeText(getContext().getApplicationContext(), "WRITE SUCCESS!", Toast.LENGTH_SHORT).show();
-                ((Main3Activity) getContext()).onBackPressed();
+                ((MainActivity) getContext()).onBackPressed();
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(getContext().getApplicationContext(), "WRITE FAIL!", Toast.LENGTH_SHORT).show();
-                ((Main3Activity) getContext()).onBackPressed();
+                ((MainActivity) getContext()).onBackPressed();
             }
         });
     }

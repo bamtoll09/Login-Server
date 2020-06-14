@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.bamtoll.lee.loginserver.Main3Activity;
+import me.bamtoll.lee.loginserver.MainActivity;
 import me.bamtoll.lee.loginserver.R;
 import me.bamtoll.lee.loginserver.retrofit.Post;
 import retrofit2.Call;
@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void getAllPosts() {
-        ((Main3Activity) getContext()).service.getAll().enqueue(new Callback<List<me.bamtoll.lee.loginserver.retrofit.Post>>() {
+        ((MainActivity) getContext()).service.getAll().enqueue(new Callback<List<me.bamtoll.lee.loginserver.retrofit.Post>>() {
             @Override
             public void onResponse(Call<List<me.bamtoll.lee.loginserver.retrofit.Post>> call, Response<List<me.bamtoll.lee.loginserver.retrofit.Post>> response) {
                 postAdapter.addAll(response.body());
