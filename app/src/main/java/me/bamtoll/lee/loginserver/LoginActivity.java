@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import me.bamtoll.lee.loginserver.retrofit.interceptor.CookiePreference;
 import me.bamtoll.lee.loginserver.retrofit.LoginService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        CookiePreference.create(getApplicationContext());
 
         editId = (EditText) findViewById(R.id.edit_id);
         editPw = (EditText) findViewById(R.id.edit_pw);
