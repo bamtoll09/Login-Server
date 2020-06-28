@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import me.bamtoll.lee.loginserver.retrofit.PostService;
+import me.bamtoll.lee.loginserver.retrofit.Transceiver;
 import me.bamtoll.lee.loginserver.retrofit.interceptor.AddCookiesInterceptor;
 import me.bamtoll.lee.loginserver.retrofit.interceptor.ReceiveCookiesInterceptor;
 import me.bamtoll.lee.loginserver.ui.home.HomeFragment;
@@ -33,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    OkHttpClient client;
-    Retrofit retrofit;
-    Gson gson;
     public PostService service;
 
     @Override
@@ -43,17 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        client = new OkHttpClient();
-        client.interceptors().add(new AddCookiesInterceptor());
-        client.interceptors().add(new ReceiveCookiesInterceptor());
-        gson = new GsonBuilder().setLenient().create();
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://" + DATA.URL + "/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(client)
-                .build();
-
-        service = retrofit.create(PostService.class);
+        service = Transceiver.getInstance().retrofit.create(PostService.class);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

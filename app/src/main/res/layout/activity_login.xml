@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/edit_id"
+        android:text="123"
         />
 
     <EditText
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/edit_pw"
         android:inputType="textPassword"
+        android:text="123"
         />
 
     <Button

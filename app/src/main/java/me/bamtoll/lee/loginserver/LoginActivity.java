@@ -5,16 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import me.bamtoll.lee.loginserver.retrofit.Transceiver;
 import me.bamtoll.lee.loginserver.retrofit.interceptor.AddCookiesInterceptor;
 import me.bamtoll.lee.loginserver.retrofit.interceptor.CookiePreference;
 import me.bamtoll.lee.loginserver.retrofit.LoginService;
@@ -28,9 +32,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-    OkHttpClient client;
-    Retrofit retrofit;
-    Gson gson;
     LoginService service;
 
     ProgressDialog loadingDialog;
@@ -43,19 +44,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        CookiePreference.create(getApplicationContext());
+        Transceiver.init(this);
 
-        client = new OkHttpClient();
-        client.interceptors().add(new AddCookiesInterceptor());
-        client.interceptors().add(new ReceiveCookiesInterceptor());
-        gson = new GsonBuilder().setLenient().create();
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://" + DATA.URL + "/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(client)
-                .build();
-
-        service = retrofit.create(LoginService.class);
+        service = Transceiver.getInstance().retrofit.create(LoginService.class);
 
         editId = (EditText) findViewById(R.id.edit_id);
         editPw = (EditText) findViewById(R.id.edit_pw);
@@ -79,6 +70,23 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         loadingDialog = new ProgressDialog(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.login, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.action_settings:
+                CookiePreference.clear();
+                Toast.makeText(getApplicationContext(), "DELETED", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -112,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
         service.login(id, pw).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(getApplicationContext(), "Loginned", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
