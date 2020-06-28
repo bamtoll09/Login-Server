@@ -12,9 +12,9 @@ public class ReceiveCookiesInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Response originalResponse = chain.proceed(chain.request());
 
-        if (!originalResponse.headers("Sek-Cookie").isEmpty()) {
+        if (!originalResponse.headers("Set-Cookie").isEmpty()) {
 
-            HashSet<String> cookies = new HashSet<>(originalResponse.headers("Sek-Cookie"));
+            HashSet<String> cookies = new HashSet<>(originalResponse.headers("Set-Cookie"));
 
             // Put cookies to preference
             CookiePreference.putCookies(cookies);
