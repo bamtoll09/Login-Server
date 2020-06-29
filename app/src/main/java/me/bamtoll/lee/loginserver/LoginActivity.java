@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Transceiver.getInstance();
         Transceiver.init(this);
 
         service = Transceiver.getInstance().retrofit.create(LoginService.class);
@@ -120,10 +121,12 @@ public class LoginActivity extends AppCompatActivity {
         service.login(id, pw).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_SHORT).show();
+                if (response.code() == 200) {
+                    Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
             }
 
             @Override

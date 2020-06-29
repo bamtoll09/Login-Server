@@ -1,6 +1,7 @@
 package me.bamtoll.lee.loginserver.retrofit.interceptor;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.Set;
@@ -19,7 +20,9 @@ public class AddCookiesInterceptor implements Interceptor {
         Set<String> cookies = CookiePreference.getCookies();
 
         for (String cookie: cookies) {
+
             builder.addHeader("Cookie", cookie);
+            Log.d("COOC-1", cookies.toString());
         }
 
         // Set User-Agent for separating Web, Android, iOS

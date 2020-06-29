@@ -17,7 +17,7 @@ public class ReceiveCookiesInterceptor implements Interceptor {
         if (!originalResponse.headers("Set-Cookie").isEmpty()) {
 
             HashSet<String> cookies = new HashSet<>(originalResponse.headers("Set-Cookie"));
-            Log.d("COOC", cookies.toString());
+            Log.d("COOC-2", cookies.toString());
 
             // Put cookies to preference
             CookiePreference.putCookies(cookies);
