@@ -1,6 +1,7 @@
 package me.bamtoll.lee.loginserver;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,8 +9,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
     ProgressDialog loadingDialog;
 
+    LinearLayout mainLayout;
     EditText editId, editPw;
     Button btnSubmit;
 
@@ -44,11 +48,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Transceiver.getInstance();
-        Transceiver.init(this);
+        Transceiver.getInstance(this);
 
         service = Transceiver.getInstance().retrofit.create(LoginService.class);
 
+        // if session exists
+        submit("1", "1");
+
+        mainLayout = (LinearLayout) findViewById(R.id.linear_login);
         editId = (EditText) findViewById(R.id.edit_id);
         editPw = (EditText) findViewById(R.id.edit_pw);
         btnSubmit = (Button) findViewById(R.id.btn_submit);
@@ -94,21 +101,21 @@ public class LoginActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (loadingDialog.isShowing())
                     loadingDialog.dismiss();
             }
-        }, 2000);
+        }, 2000);*/
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if (loadingDialog.isShowing())
-            loadingDialog.dismiss();
+        /*if (loadingDialog.isShowing())
+            loadingDialog.dismiss();*/
     }
 
     void showLoadingDialog() {
@@ -122,10 +129,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
+
                     Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
 

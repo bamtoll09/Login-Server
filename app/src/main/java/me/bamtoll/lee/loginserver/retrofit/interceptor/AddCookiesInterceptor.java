@@ -26,7 +26,7 @@ public class AddCookiesInterceptor implements Interceptor {
         }
 
         // Set User-Agent for separating Web, Android, iOS
-        builder.removeHeader("User-Agent").addHeader("User-Agent", "Android");
+        // builder.removeHeader("User-Agent").addHeader("User-Agent", "Android");
 
         return chain.proceed(builder.build());
     }

@@ -2,7 +2,9 @@ package me.bamtoll.lee.loginserver;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +26,7 @@ import com.google.gson.GsonBuilder;
 import me.bamtoll.lee.loginserver.retrofit.PostService;
 import me.bamtoll.lee.loginserver.retrofit.Transceiver;
 import me.bamtoll.lee.loginserver.retrofit.interceptor.AddCookiesInterceptor;
+import me.bamtoll.lee.loginserver.retrofit.interceptor.CookiePreference;
 import me.bamtoll.lee.loginserver.retrofit.interceptor.ReceiveCookiesInterceptor;
 import me.bamtoll.lee.loginserver.ui.home.HomeFragment;
 import okhttp3.OkHttpClient;
@@ -91,6 +94,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.action_settings:
+                CookiePreference.clear();
+                Toast.makeText(getApplicationContext(), "DELETED", Toast.LENGTH_SHORT).show();
+                break;
+        }
         return true;
     }
 
