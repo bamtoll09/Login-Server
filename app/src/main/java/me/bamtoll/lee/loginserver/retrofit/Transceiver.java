@@ -6,15 +6,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.net.CookieManager;
-import java.net.CookiePolicy;
-import java.util.concurrent.TimeUnit;
 
 import me.bamtoll.lee.loginserver.DATA;
 import me.bamtoll.lee.loginserver.retrofit.interceptor.AddCookiesInterceptor;
 import me.bamtoll.lee.loginserver.retrofit.interceptor.CookiePreference;
 import me.bamtoll.lee.loginserver.retrofit.interceptor.ReceiveCookiesInterceptor;
 import me.bamtoll.lee.loginserver.retrofit.kook.PersistentCookieStore;
-import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

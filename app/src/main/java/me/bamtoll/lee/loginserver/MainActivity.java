@@ -1,5 +1,6 @@
 package me.bamtoll.lee.loginserver;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -72,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
                         if (!fab.isShown())
                             fab.show();
                         break;
+
+
+
+                    case "Log out":
+                        finish();
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
+                        CookiePreference.clear();
+                        break;
                 }
             }
         });
@@ -90,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -106,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return true;
-    }
+    }*/
 
     @Override
     public boolean onSupportNavigateUp() {

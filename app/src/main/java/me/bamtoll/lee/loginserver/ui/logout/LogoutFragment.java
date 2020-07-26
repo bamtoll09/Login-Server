@@ -1,4 +1,4 @@
-package me.bamtoll.lee.loginserver.ui.tools;
+package me.bamtoll.lee.loginserver.ui.logout;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import me.bamtoll.lee.loginserver.R;
 
-public class ToolsFragment extends Fragment {
+public class LogoutFragment extends Fragment {
 
-    private ToolsViewModel toolsViewModel;
+    private LogoutViewModel logoutViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        toolsViewModel =
-                ViewModelProviders.of(this).get(ToolsViewModel.class);
+        logoutViewModel =
+                ViewModelProviders.of(this).get(LogoutViewModel.class);
         View root = inflater.inflate(R.layout.fragment_tools, container, false);
         final TextView textView = root.findViewById(R.id.text_tools);
-        toolsViewModel.getText().observe(this, new Observer<String>() {
+        logoutViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
