@@ -16,4 +16,8 @@ public class SettingsViewModel extends ViewModel {
     public LiveData<String> getText() {
         return mText;
     }
+
+    public LiveData<String> getText(boolean authorized) {
+        return mText;
+    }
 }

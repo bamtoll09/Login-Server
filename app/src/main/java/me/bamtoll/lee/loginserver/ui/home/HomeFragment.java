@@ -1,6 +1,7 @@
 package me.bamtoll.lee.loginserver.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,6 +24,7 @@ import me.bamtoll.lee.loginserver.retrofit.Post;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Field;
 
 public class HomeFragment extends Fragment {
 
@@ -31,23 +34,28 @@ public class HomeFragment extends Fragment {
     private PostAdapter postAdapter;
     private ArrayList<me.bamtoll.lee.loginserver.retrofit.Post> posts = new ArrayList<>();
 
+    private static boolean LOADED = false;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         frameLayout = root.findViewById(R.id.frame_home);
         listView = root.findViewById(R.id.list);
         postAdapter = new PostAdapter(container.getContext(), R.layout.item_post, posts);
         listView.setAdapter(postAdapter);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+
+        if (!LOADED) {
+            LOADED = true;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
 //                for (int i=0; i<300; ++i)
 //                    posts.add(new Post("title" + i, "conconconconc" + i, SimpleDateFormat.getDateTimeInstance().format(new Date()), "Me"));
-                getAllPosts();
-                postAdapter.notifyDataSetChanged();
-            }
-        }).run();
+                    getAllPosts();
+                    postAdapter.notifyDataSetChanged();
+                }
+            }).run();
+        }
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Bundle bundle = new Bundle();
@@ -62,6 +70,8 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
+
 
     public void addContentsFragment(Bundle bundle) {
         FragmentManager fm = getChildFragmentManager();

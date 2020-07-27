@@ -18,18 +18,25 @@ public class LogoutFragment extends Fragment {
 
     private LogoutViewModel logoutViewModel;
 
+    private static boolean LOADED = false;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         logoutViewModel =
                 ViewModelProviders.of(this).get(LogoutViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_tools, container, false);
-        final TextView textView = root.findViewById(R.id.text_tools);
+        View root = inflater.inflate(R.layout.fragment_send, container, false);
+        final TextView textView = root.findViewById(R.id.text_send);
         logoutViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
+
+        if (!LOADED) {
+            LOADED = true;
+        }
+
         return root;
     }
 }
