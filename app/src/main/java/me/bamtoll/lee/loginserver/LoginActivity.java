@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (id.equals("") || pw.equals("")) {
                     Toast.makeText(getApplicationContext(), "Check your ID or Password", Toast.LENGTH_SHORT).show();
                 } else { // Form is Corrected
-                    showLoadingDialog();
+                    showLoadingDialog(true);
 
                     submit(id, pw);
                     Toast.makeText(getApplicationContext(), "It sent!", Toast.LENGTH_SHORT).show();
@@ -118,10 +118,14 @@ public class LoginActivity extends AppCompatActivity {
             loadingDialog.dismiss();*/
     }
 
-    void showLoadingDialog() {
-        loadingDialog.setMessage("Please wait...");
-        loadingDialog.create();
-        loadingDialog.show();
+    void showLoadingDialog(boolean show) {
+        if (show) {
+            loadingDialog.setMessage("Please wait...");
+            loadingDialog.create();
+            loadingDialog.show();
+        } else {
+            loadingDialog.dismiss();
+        }
     }
 
     void submit(String id, String pw) {
@@ -131,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
+                    showLoadingDialog(false);
 
                     Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_SHORT).show();
 

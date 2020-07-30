@@ -39,4 +39,11 @@ public class LogoutFragment extends Fragment {
 
         return root;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        LOADED = false;
+    }
 }

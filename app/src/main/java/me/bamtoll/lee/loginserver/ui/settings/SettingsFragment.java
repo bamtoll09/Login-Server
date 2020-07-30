@@ -43,6 +43,13 @@ public class SettingsFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        LOADED = false;
+    }
+
     private void getSettings() {
         service.getSettings().enqueue(new Callback<Settings>() {
             @Override
